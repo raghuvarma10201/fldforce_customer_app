@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <clipPath id="clip-refresh-icon">
+      <rect width="50" height="50"/>
+    </clipPath>
+  </defs>
+  <g id="refresh-icon" clip-path="url(#clip-refresh-icon)">
+    <g id="noun-refresh-7224664" transform="translate(-9.247 -9.364)">
+      <path id="Path_3966" data-name="Path 3966" d="M47.236,20.744l4.2,1.28A21.118,21.118,0,0,0,16.342,45.48a21.133,21.133,0,0,0,36.887-1.734,1.921,1.921,0,0,1,3.432,1.691,25,25,0,1,1-2.228-25.82l.973-3.2a1.948,1.948,0,0,1,2.409-1.28,1.922,1.922,0,0,1,1.28,2.409l-2.562,8.119h0a1.948,1.948,0,0,1-1.844,1.357,2.019,2.019,0,0,1-.564,0l-8.119-2.562v0a1.928,1.928,0,1,1,1.126-3.688Z" transform="translate(0)" fill="#091f5b"/>
+    </g>
+  </g>
+</svg>

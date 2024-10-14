@@ -1,0 +1,7 @@
+{
+  "name": "PSD-Customer app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
