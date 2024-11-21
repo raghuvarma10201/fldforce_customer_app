@@ -1,9 +1,41 @@
 import axiosInstance from '../components/ApiInterceptor';
 const apiUrl: any = import.meta.env.VITE_API_URL;
 
+
+export const getBusinessId = () => {
+  const selectedBusiness = localStorage.getItem("selectedBusiness");
+  if (!selectedBusiness) {
+    console.error("Business data is not available");
+    throw new Error("Business Data Not available");
+  }
+  return (JSON.parse(selectedBusiness)).business_id;
+};
+export const getCustomerId = () => {
+  const selectedBusiness = localStorage.getItem("selectedBusiness");
+  if (!selectedBusiness) {
+    console.error("Business data is not available");
+    throw new Error("Business Data Not available");
+  }
+  return (JSON.parse(selectedBusiness)).customer_id;
+};
+export const getCustomerBusiness = async () => {
+  try {
+    const requestBody = {};
+    const response = await axiosInstance.get(`${apiUrl}api/v1/get-customer-business`);
+    console.log(response);
+    return response;
+  }
+  catch(error){
+      console.error(error);
+  }   
+};
+
 export const getDashboardOptions = async () => {
     try {
-      const requestBody = {};
+      const requestBody = {
+        business_id : await getBusinessId(),
+        customer_id : await getCustomerId()
+      };
       const response = await axiosInstance.post(`${apiUrl}api/v1/get-dashboard-counts`,requestBody);
       console.log(response);
       return response;
@@ -91,8 +123,10 @@ export const getProposalDetails = async (body:any) => {
 
 export const getAreasMaster = async () => {
     try {
-    
-      const response = await axiosInstance.get(`${apiUrl}api/v1/get-areas`);
+      const requestBody = {
+        business_id : await getBusinessId()
+      }
+      const response = await axiosInstance.post(`${apiUrl}api/v1/get-areas`,requestBody);
       console.log(response);
       return response;
     }
@@ -103,8 +137,10 @@ export const getAreasMaster = async () => {
 
 export const getClienttypesMaster = async () => {
     try {
-    
-      const response = await axiosInstance.get(`${apiUrl}api/v1/get-clienttypes`);
+      const requestBody = {
+        business_id : await getBusinessId()
+      }
+      const response = await axiosInstance.post(`${apiUrl}api/v1/get-clienttypes`,requestBody);
       console.log(response);
       return response;
     }
@@ -115,8 +151,10 @@ export const getClienttypesMaster = async () => {
 
 export const getServicesMaster = async () => {
     try {
-    
-      const response = await axiosInstance.get(`${apiUrl}api/v1/get-services`);
+      const requestBody = {
+        business_id : await getBusinessId()
+      }
+      const response = await axiosInstance.post(`${apiUrl}api/v1/get-services`,requestBody);
       console.log(response);
       return response;
     }
@@ -127,6 +165,9 @@ export const getServicesMaster = async () => {
 
 export const createTask = async (body:any) => {
   try {
+    body.area_type = '';
+    body.customer_id = await getCustomerId();
+    body.business_id = await getBusinessId();
   
     const response = await axiosInstance.post(`${apiUrl}api/v1/create-task`,body);
     console.log(response);

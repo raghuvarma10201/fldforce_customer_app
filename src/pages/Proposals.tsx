@@ -35,7 +35,7 @@ import {
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { chevronForward } from 'ionicons/icons';
 import useLoading from "../components/useLoading";
-import { getProposalList } from "../shared/common";
+import { getBusinessId, getCustomerId, getProposalList } from "../shared/common";
 import { PuffLoader } from "react-spinners";
 
 const Proposals: React.FC = () => {
@@ -81,6 +81,8 @@ const Proposals: React.FC = () => {
                     "tbl_site_survey.created_on": "desc"
                 },
                 filters: {
+                    "tbl_site_survey.customer_id" : await getCustomerId(),
+                    "tbl_site_survey.business_id" :await getBusinessId(),
                     "tbl_site_survey.proposal_no": "",
                     "tbl_site_survey.status": ["7", "11"]
                 },

@@ -59,10 +59,9 @@ const Dashboard: React.FC = () => {
     }
   }
   useEffect(() => {
-
     fetchDashboardData();
   }, [])
-
+  
 
   return (
     <>
@@ -92,22 +91,6 @@ const Dashboard: React.FC = () => {
 
             <IonSearchbar placeholder="Search for services"></IonSearchbar>
           </div>
-
-            {/* <IonList lines="full" className="ion-list-item dashMapPinIcon">
-                            <IonItem lines="none">
-                                <IonThumbnail slot="start" className="thumbnailIcon">
-                                    <IonImg src="/assets/images/map-pin-icon.svg"></IonImg>
-                                </IonThumbnail>
-                                <div>
-                                    <IonText>
-                                        <h2>PPM General Pest Control</h2>
-                                        <h3>Hilton Group - Hilton Garden Inn</h3>                             
-                                    </IonText>
-                                </div>
-                        </IonItem>            
-                  </IonList> */}
-         
-
             <div className="ion-dashcard-icons">
               <IonRow>
                 {dashboardData.length > 0 ? (

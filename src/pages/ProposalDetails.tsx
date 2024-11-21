@@ -16,7 +16,7 @@ import {
     IonInput,
 } from "@ionic/react";
 import useLoading from '../components/useLoading';
-import { acceptProposalRequest, discountRequest, getProposalDetails, rejectProposal } from '../shared/common';
+import { acceptProposalRequest, discountRequest, getCustomerId, getProposalDetails, rejectProposal } from '../shared/common';
 import { PuffLoader } from 'react-spinners';
 import CommonHeader from "../components/CommonHeader";
 import SignatureCanvas from 'react-signature-canvas';
@@ -74,6 +74,7 @@ const ProposalDetails: React.FC = () => {
 
             const body = {
                 id: id,
+                customer_id : await getCustomerId(),
                 proposal_no: data[0].proposal_no,
                 reject_remarks: values.reject_remarks
             };
@@ -99,6 +100,7 @@ const ProposalDetails: React.FC = () => {
 
             const body = {
                 id: id,
+                customer_id : await getCustomerId(),
                 proposal_no: data[0].proposal_no,
                 comments: values.comments
             };
@@ -125,6 +127,7 @@ const ProposalDetails: React.FC = () => {
                 try {
                     const body = {
                         id: id,
+                        customer_id : await getCustomerId(),
                         proposal_no: data[0].proposal_no,
                         customer_signature: trimmedDataURL
                     };

@@ -28,7 +28,7 @@ import {
   import { chevronForward } from 'ionicons/icons';
 import { useEffect, useState } from "react";
 import useLoading from "../components/useLoading";
-import { getVisitsList } from "../shared/common";
+import { getBusinessId, getCustomerId, getVisitsList } from "../shared/common";
 import { PuffLoader } from "react-spinners";
 import {formatDate, formatDateTime, formatTime, getDateTime,} from "../utils/dateTimeUtils";
 
@@ -60,7 +60,9 @@ const Reports: React.FC = () => {
             },
             filters: {
               "tbl_site_survey.proposal_no": "",
-              "tbl_visits.service_status" : ["18"]
+              "tbl_visits.service_status" : ["18"],
+              "tbl_site_survey.customer_id" : await getCustomerId(),
+              "tbl_site_survey.business_id" : await getBusinessId()
             },
             pagination: {
                 limit: "5",

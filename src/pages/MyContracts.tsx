@@ -17,7 +17,7 @@ import {
     IonCol,
 } from "@ionic/react";
 import CommonHeader from "../components/CommonHeader";
-import { getContractsList } from '../shared/common';
+import { getBusinessId, getContractsList, getCustomerId } from '../shared/common';
 import { PuffLoader } from 'react-spinners';
 import useLoading from '../components/useLoading';
 import { useHistory } from 'react-router';
@@ -52,7 +52,9 @@ const MyContracts: React.FC = () => {
                 },
                 filters: {
                     "tbl_site_survey.proposal_no": "",
-                    "tbl_site_survey.status": 10
+                    "tbl_site_survey.status": 10,
+                    "tbl_site_survey.customer_id" : await getCustomerId(),
+                    "tbl_site_survey.business_id" :await getBusinessId()
                 },
                 pagination: {
                     limit: "5",

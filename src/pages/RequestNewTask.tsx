@@ -49,7 +49,7 @@ const RequestNewTask: React.FC = () => {
       .matches(/^[a-zA-Z\s]*$/, "Name must contain only letters and spaces")
       .required("Name is required"),
     mobile_no: Yup.string()
-      .matches(/^[0-9]{9}$/, "Mobile number is not valid")
+      .matches(/^[0-9]{9,10}$/, "Mobile number is not valid")
       .required("Mobile number is required"),
     email: Yup.string().required("Email is required"),
     area: Yup.string().required("Area is required"),
@@ -70,6 +70,7 @@ const RequestNewTask: React.FC = () => {
       values.gps=position?.coords.latitude+','+position?.coords.longitude;
       // Add API call to submit form data here
       console.log("form values", values);
+      
       const response:any = await createTask(values);
       if (response.data.status == 200 && response.data.success) {
         history.push('/dashboard');

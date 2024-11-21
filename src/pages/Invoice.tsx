@@ -250,67 +250,67 @@ const Invoice: React.FC = () => {
     setSelectedItem([]);  // Reset the selected item
   };
 
-  const downloadFile = async (file_name: any,file : string) => {
+  const downloadFile = async (file_name: any, file: string) => {
     console.log(file);
     if (file) {
-        const base64Data = `data:application/pdf;base64,${file}`;
-        const currentDate = new Date().toLocaleString().replace(/[,:\s\/]/g, '-');
-        const fileName = `${file_name}-${currentDate}.pdf`;
+      const base64Data = `data:application/pdf;base64,${file}`;
+      const currentDate = new Date().toLocaleString().replace(/[,:\s\/]/g, '-');
+      const fileName = `${file_name}-${currentDate}.pdf`;
 
-        if (isPlatform('hybrid')) {
-            // Use Capacitor Filesystem for mobile
-            try {
-                if (Filesystem && Directory) {
-                    await checkFilesystemPermissions();
+      if (isPlatform('hybrid')) {
+        // Use Capacitor Filesystem for mobile
+        try {
+          if (Filesystem && Directory) {
+            await checkFilesystemPermissions();
 
-                    // Attempt to write the file
-                    const result = await Filesystem.writeFile({
-                        path: fileName,
-                        data: base64Data,
-                        directory: Directory.Documents,
-                        recursive: true
-                    });
+            // Attempt to write the file
+            const result = await Filesystem.writeFile({
+              path: fileName,
+              data: base64Data,
+              directory: Directory.Documents,
+              recursive: true
+            });
 
-                    console.log("File write result:", result);
-                    await toast.success("File downloaded successfully.");
-                } else {
-                    throw new Error("Filesystem components not available.");
-                }
-            } catch (error) {
-                console.error("Error writing file:", error);
-                await toast.error("Failed to download the file. Please try again.");
-            }
-        } else {
-            // Use browser method for web
-            try {
-                const downloadLink = document.createElement('a');
-                downloadLink.href = base64Data;
-                downloadLink.download = fileName;
-                downloadLink.click();
-                await toast.success("File downloaded successfully.");
-            } catch (error) {
-                console.error("Error downloading file:", error);
-                await toast.error("Failed to download the file. Please try again.");
-            }
+            console.log("File write result:", result);
+            await toast.success("File downloaded successfully.");
+          } else {
+            throw new Error("Filesystem components not available.");
+          }
+        } catch (error) {
+          console.error("Error writing file:", error);
+          await toast.error("Failed to download the file. Please try again.");
         }
+      } else {
+        // Use browser method for web
+        try {
+          const downloadLink = document.createElement('a');
+          downloadLink.href = base64Data;
+          downloadLink.download = fileName;
+          downloadLink.click();
+          await toast.success("File downloaded successfully.");
+        } catch (error) {
+          console.error("Error downloading file:", error);
+          await toast.error("Failed to download the file. Please try again.");
+        }
+      }
     } else {
-        await toast.error("No proposal file found.");
+      await toast.error("No proposal file found.");
     }
-};
-const checkFilesystemPermissions = async () => {
-  try {
+  };
+  const checkFilesystemPermissions = async () => {
+    try {
       const permissionStatus = await Filesystem.requestPermissions();
 
       if (permissionStatus.publicStorage !== 'granted') {
-          throw new Error('Filesystem permissions not granted.');
+        throw new Error('Filesystem permissions not granted.');
       }
 
       console.log('Filesystem permissions granted.');
-  } catch (error) {
+    } catch (error) {
       console.error('Filesystem permissions error:', error);
       throw new Error('Permissions not granted.');
-  }
-};
+    }
+  };
   // Helper function to convert a blob to base64
   const convertBlobToBase64 = (blob: Blob): Promise<string> => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -351,18 +351,18 @@ const checkFilesystemPermissions = async () => {
                   <IonList lines="none">
                     {paidItems.length > 0
                       ? paidItems.map((row: any, index: number) => (
-                        <IonCard  lines="none" key={row.id}>
-                        <IonItem>
-                          <div className="myOrderThumbnail">
-                            <IonThumbnail
-                              slot="start"
-                              className="thumbnailIcon"
-                            >
-                              <IonImg src="assets/images/invoice-icon.svg"></IonImg>
-                            </IonThumbnail>
-                          </div>
+                        <IonCard lines="none" key={row.id}>
+                          <IonItem>
+                            <div className="myOrderThumbnail">
+                              <IonThumbnail
+                                slot="start"
+                                className="thumbnailIcon"
+                              >
+                                <IonImg src="assets/images/invoice-icon.svg"></IonImg>
+                              </IonThumbnail>
+                            </div>
 
-                
+
                             <IonCardContent>
                               <IonText>
                                 <h2>
@@ -407,7 +407,7 @@ const checkFilesystemPermissions = async () => {
                                   <IonButton
                                     shape="round"
                                     className="downloadBt"
-                                    onClick={() => downloadFile(row.order_number+'_invoice',row.encrypted_invoice)}
+                                    onClick={() => downloadFile(row.order_number + '_invoice', row.encrypted_invoice)}
                                   >
                                     <IonImg src="assets/images/download-icon.svg" />
                                   </IonButton>
@@ -424,9 +424,9 @@ const checkFilesystemPermissions = async () => {
                                 </div>
                               </div>
                             </IonCardContent>
-                            </IonItem>
-                          </IonCard>
-                       
+                          </IonItem>
+                        </IonCard>
+
                       ))
                       : ""}
                   </IonList>
@@ -451,17 +451,17 @@ const checkFilesystemPermissions = async () => {
                       ? unpaidItems.map((row: any, index: number) => (
 
                         <IonCard key={index}>
-                        <IonItem>
-                          <div className="myOrderThumbnail">
-                            <IonThumbnail
-                              slot="start"
-                              className="thumbnailIcon"
-                            >
-                              <IonImg src="assets/images/invoice-icon.svg"></IonImg>
-                            </IonThumbnail>
-                          </div>
+                          <IonItem>
+                            <div className="myOrderThumbnail">
+                              <IonThumbnail
+                                slot="start"
+                                className="thumbnailIcon"
+                              >
+                                <IonImg src="assets/images/invoice-icon.svg"></IonImg>
+                              </IonThumbnail>
+                            </div>
 
-                        
+
                             <IonCardContent>
                               <IonText>
                                 <h2>
@@ -511,7 +511,7 @@ const checkFilesystemPermissions = async () => {
                                   <IonButton
                                     shape="round"
                                     className="downloadBt"
-                                    onClick={() => downloadFile(row.order_number+'_invoice',row.encrypted_invoice)}
+                                    onClick={() => downloadFile(row.order_number + '_invoice', row.encrypted_invoice)}
                                   >
                                     <IonImg src="assets/images/download-icon.svg" />
                                   </IonButton>
@@ -526,9 +526,9 @@ const checkFilesystemPermissions = async () => {
                                 </div>
                               </div>
                             </IonCardContent>
-                            </IonItem>
-                          </IonCard>
-                        
+                          </IonItem>
+                        </IonCard>
+
                       ))
                       : ""}
                   </IonList>
@@ -576,14 +576,14 @@ const checkFilesystemPermissions = async () => {
               {receiptsData.length > 0
                 ? receiptsData.map((row: any, index: number) => (
                   <IonCard key={index}>
-                  <IonItem lines="none">
-                    <div className="myOrderThumbnail">
-                      <IonThumbnail slot="start" className="thumbnailIcon">
-                        <IonImg src="assets/images/receipt-icon.svg"></IonImg>
-                      </IonThumbnail>
-                    </div>
+                    <IonItem lines="none">
+                      <div className="myOrderThumbnail">
+                        <IonThumbnail slot="start" className="thumbnailIcon">
+                          <IonImg src="assets/images/receipt-icon.svg"></IonImg>
+                        </IonThumbnail>
+                      </div>
 
-                   
+
                       <IonCardContent>
                         <IonText>
                           <h2>
@@ -622,16 +622,16 @@ const checkFilesystemPermissions = async () => {
                             <IonButton
                               shape="round"
                               className="downloadBt"
-                              onClick={()=>downloadFile(row.receipt_no+'_receipt',row.encrypted_receipt)}
+                              onClick={() => downloadFile(row.receipt_no + '_receipt', row.encrypted_receipt)}
                             >
                               <IonImg src="assets/images/download-icon.svg" />
                             </IonButton>
                           </div>
                         </div>
                       </IonCardContent>
-                      </IonItem>
-                    </IonCard>
-                 
+                    </IonItem>
+                  </IonCard>
+
 
                 ))
                 : ""}
